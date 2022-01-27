@@ -27,6 +27,13 @@ function Sidebar() {
     // console.log(channels);
     const [input, setInput] = useState('');
     const [user] = useAuthState(auth);
+    const [show, setShow] = useState(false);
+
+    const toggleShow = () => {
+        // console.log(show);
+        setShow(!show)
+    }
+ 
     return (
         <SidebarContainer>
 
@@ -41,15 +48,18 @@ function Sidebar() {
                 <CreateIcon />
             </SidebarHeader>
 
+            
             <SidebarOption Icon={InsertCommentIcon} title="Threads" /> 
             <SidebarOption Icon={InboxIcon} title="Mentions & reactions" /> 
             <SidebarOption Icon={DraftsIcon} title="Saved items" /> 
+            <div style={{display:`${show? "":"none"}`}}>
             <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" /> 
             <SidebarOption Icon={PeopleAltIcon} title="People & user groups" /> 
             <SidebarOption Icon={AppsIcon} title="Apps" /> 
             <SidebarOption Icon={FileCopyIcon} title="File browser" /> 
-            <SidebarOption Icon={ExpandLessIcon} title="Show less" /> 
-
+            </div>
+            <SidebarOption Icon={show?ExpandLessIcon:ExpandMoreIcon} title={`Show ${show?"less":"more"}`} toggleShow={toggleShow} clicked/> 
+         
             <hr />
             <SidebarOption Icon={ExpandMoreIcon} title="Channels" /> 
             <hr />
