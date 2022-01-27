@@ -16,12 +16,17 @@ import AddIcon from '@material-ui/icons/Add';
 import { db } from '../firebase';
 import {collection, getDocs, query} from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore'
+import { auth } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useState } from 'react';
 
 function Sidebar() {
     const collectionRef = collection(db, 'rooms');
     
     const [channels, loading, error] = useCollection(collectionRef);
     // console.log(channels);
+    const [input, setInput] = useState('');
+    const [user] = useAuthState(auth);
     return (
         <SidebarContainer>
 
@@ -30,7 +35,7 @@ function Sidebar() {
                     <h2>THIS IS US</h2>
                     <h3>
                         <FiberManualRecordIcon />
-                        Kanika Kaur 
+                        {user.displayName}
                     </h3>
                 </SidebarInfo>
                 <CreateIcon />

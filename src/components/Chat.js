@@ -26,9 +26,9 @@ function Chat() {
     )
 
     useEffect(() => {
-      chatRef?.current?.scrollIntoView(/*{
-          behavior: "smooth",
-      }*/);
+      chatRef?.current?.scrollIntoView({
+          behavior: "smooth"
+      });
     }, [roomId, loading, roomMessages]);
     
         
@@ -56,7 +56,7 @@ function Chat() {
                 </HeaderRight>
             </Header>
 
-            <ChatMessages>
+            <ChatMessages chatRef={chatRef}>
                 {roomMessages?.docs.map(doc =>{
                     const {message, timestamp, user, userimage } = doc.data();
                     return (
@@ -69,7 +69,7 @@ function Chat() {
                         />
                     )
                 })}
-                <ChatBottom chatRef={chatRef}/>
+                <ChatBottom chatRef={chatRef} />
             </ChatMessages>
 
             <ChatInput chatRef={chatRef} channelName={roomDetails?.data().name} channelId = {roomId} />

@@ -3,16 +3,17 @@ import styled from "styled-components";
 import { Button } from '@material-ui/core';
 import { db } from '../firebase';
 import { addDoc, doc, collection, serverTimestamp } from 'firebase/firestore';
-// import avatar from './avatar.png';
-import { useRef } from 'react';
+import { auth } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function ChatInput({channelName, channelId, chatRef}) {
 
     const [input, setInput] = useState('');
-
+    const [user] = useAuthState(auth);
 
     const sendMessage = (e) =>{
         e.preventDefault(); //Prevents refresh
+        // console.log(chatRef);
 
         if(!channelId){
             return false;
@@ -24,12 +25,14 @@ function ChatInput({channelName, channelId, chatRef}) {
         addDoc(db2, {
             message: input,
             timestamp : serverTimestamp(),
-            user: 'Kanika Kaur',
-            userimage: "" 
+            user: user.displayName,
+            userimage: user.photoURL 
         })
+        // console.log(chatRef);
         chatRef?.current?.scrollIntoView({
             behavior: "smooth"
         })
+        
         setInput("");
 
 
