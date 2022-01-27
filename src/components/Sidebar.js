@@ -20,10 +20,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 function Sidebar() {
     const collectionRef = collection(db, 'rooms');
     
-    const [channels, loading, error] = useCollection(collectionRef,
-        {
-            snapshotListenOptions: {includeMetadataChanges: true}
-        });
+    const [channels, loading, error] = useCollection(collectionRef);
     // console.log(channels);
     return (
         <SidebarContainer>
