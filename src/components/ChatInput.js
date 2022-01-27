@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Button } from '@material-ui/core';
 import { db } from '../firebase';
 import { addDoc, doc, collection, serverTimestamp } from 'firebase/firestore';
-import avatar from '../avatar.png'
+// import avatar from './avatar.png';
+import { useRef } from 'react';
 
-function ChatInput({channelName, channelId}) {
+function ChatInput({channelName, channelId, chatRef}) {
 
     const [input, setInput] = useState('');
 
@@ -24,9 +25,11 @@ function ChatInput({channelName, channelId}) {
             message: input,
             timestamp : serverTimestamp(),
             user: 'Kanika Kaur',
-            userImage:{avatar} 
+            userimage: "" 
         })
-
+        chatRef?.current?.scrollIntoView(/*{
+            behavior: "smooth"
+        }*/)
         setInput("");
 
 

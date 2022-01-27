@@ -8,33 +8,38 @@ import ChatInput from './ChatInput';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
 import { collection, orderBy, query, doc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Message } from '@material-ui/icons';
+import  Message from './Message';
+import { useRef, useEffect } from 'react';
 
 function Chat() {
+    const chatRef = useRef(null);
     
     const roomId = useSelector(selectRoomId);
-    const [roomDetails] = useDocument(
+    const [roomDetails, loading] = useDocument(
         roomId && doc(db, 'rooms', roomId)
     )
-
-    
-
-    // const docRef = doc(db, 'rooms', roomId);
-    // const db2 = collection(docRef, 'messages');
-    // const q = query(db2, orderBy('timestamp', 'asc'));
 
     const [roomMessages] = useCollection(
         roomId && 
         query(collection(doc(db,'rooms',roomId), 'messages'), orderBy('timestamp','asc'))
 
     )
+
+    useEffect(() => {
+      chatRef?.current?.scrollIntoView(/*{
+          behavior: "smooth",
+      }*/);
+    }, [roomId, loading]);
+    
         
     // console.log(roomDetails);
     // console.log(roomMessages);
 
   return (
     <ChatContainer>
+        {roomDetails && roomMessages && (
         <>
+
             <Header>
                 <HeaderLeft>
                     <h4>
@@ -53,24 +58,26 @@ function Chat() {
 
             <ChatMessages>
                 {roomMessages?.docs.map(doc =>{
-                    const {message, timestamp, user, userImage } = doc.data();
+                    const {message, timestamp, user, userimage } = doc.data();
                     return (
                         <Message
                         key = {doc.id}
                         message = {message}
                         timestamp = {timestamp}
                         user = {user}
-                        userImage = {userImage}
+                        userimage = {userimage}
                         />
                     )
                 })}
+                <ChatBottom chatRef={chatRef}/>
             </ChatMessages>
 
-            <ChatInput channelName = {roomDetails?.data().name} channelId = {roomId} />
+            <ChatInput chatRef={chatRef} channelName={roomDetails?.data().name} channelId = {roomId} />
                 
+        </>
+        )}
                 
            
-        </>
     </ChatContainer>
   )
 }
@@ -121,5 +128,9 @@ const HeaderRight = styled.div`
 `
 
 const ChatMessages = styled.div`
+
 `
 
+const ChatBottom = styled.div`
+    padding-bottom: 200px;
+`

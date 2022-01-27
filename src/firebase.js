@@ -1,16 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 import{ getAuth }from 'firebase/auth'
 import { GoogleAuthProvider } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDEkDt6vhIEZWr90bl1-XRIB8evn-ND_tM",
-  authDomain: "slack-clone-20e1c.firebaseapp.com",
-  projectId: "slack-clone-20e1c",
-  storageBucket: "slack-clone-20e1c.appspot.com",
-  messagingSenderId: "938377349903",
-  appId: "1:938377349903:web:09d2a48e50dc658a414c7a"
+  apiKey: "AIzaSyDBldsIFgcMhv0NetmSbObaApGdIKPTQME",
+  authDomain: "slack-clone-e1c9b.firebaseapp.com",
+  projectId: "slack-clone-e1c9b",
+  storageBucket: "slack-clone-e1c9b.appspot.com",
+  messagingSenderId: "884484803254",
+  appId: "1:884484803254:web:86a425afaa63d0dde63417"
 };
 
 // Initialize Firebase
