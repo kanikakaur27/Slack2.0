@@ -29,7 +29,7 @@ function Chat() {
       chatRef?.current?.scrollIntoView(/*{
           behavior: "smooth",
       }*/);
-    }, [roomId, loading]);
+    }, [roomId, loading, roomMessages]);
     
         
     // console.log(roomDetails);

@@ -27,9 +27,9 @@ function ChatInput({channelName, channelId, chatRef}) {
             user: 'Kanika Kaur',
             userimage: "" 
         })
-        chatRef?.current?.scrollIntoView(/*{
+        chatRef?.current?.scrollIntoView({
             behavior: "smooth"
-        }*/)
+        })
         setInput("");
 
 
